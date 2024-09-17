@@ -2,6 +2,7 @@ package vn.iostart.model;
 
 import java.io.Serializable;
 
+@SuppressWarnings("serial")
 public class Users implements Serializable {
 	
 	/**
