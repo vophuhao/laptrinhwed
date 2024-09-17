@@ -16,21 +16,36 @@ public class Users implements Serializable {
 	private String passWord;
 	private UserRoles roles;
 	private String code;
+	private int status;
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
+	}
 	private int roleid;
 	private String phone;
-	public Users(int userid, String email, String userName, String fullName, String passWord, UserRoles roles,
-			String code, int roleid, String phone) {
+	
+	public Users(String email, String userName, String fullName, String passWord, String code, int status, int roleid) {
 		super();
-		this.userid = userid;
 		this.email = email;
 		this.userName = userName;
 		this.fullName = fullName;
 		this.passWord = passWord;
-		this.roles = roles;
 		this.code = code;
+		this.status = status;
 		this.roleid = roleid;
-		this.phone = phone;
 	}
+	
+	public Users(String email, String userName, String fullName, String code) {
+		super();
+		this.email = email;
+		this.userName = userName;
+		this.fullName = fullName;
+		this.code = code;
+	}
+
 	public int getUserid() {
 		return userid;
 	}
