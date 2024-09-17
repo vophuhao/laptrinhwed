@@ -27,7 +27,7 @@ public class Users implements Serializable {
 	private int roleid;
 	private String phone;
 	
-	public Users(String email, String userName, String fullName, String passWord, String code, int status, int roleid) {
+	public Users(String email, String userName, String fullName, String passWord, int roleid, int status, String code) {
 		super();
 		this.email = email;
 		this.userName = userName;
