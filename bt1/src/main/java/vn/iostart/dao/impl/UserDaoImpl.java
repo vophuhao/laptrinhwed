@@ -3,6 +3,7 @@ package vn.iostart.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
 
 import vn.iostart.dao.IUserDao;
 import vn.iostart.model.Users;
@@ -14,7 +15,7 @@ public class UserDaoImpl implements IUserDao {
 	public ResultSet rs = null;
 //	IUserRoleService userRoleService =new UserRoleServiceImpl(); // lấy dữ liệu từ UserRole
 
-	@Override
+	
 //	public List<Users> findAll() {
 //	List<Users> userList = new ArrayList<Users>();
 //	String sql="select Users.userId, users.email, Users.fullname, users.images, users.username, user
@@ -124,6 +125,12 @@ public class UserDaoImpl implements IUserDao {
 	public void delete(int id) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public List<Users> findAll() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
