@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
 
+import vn.iostart.dao.DBConnection;
 import vn.iostart.dao.IUserDao;
 import vn.iostart.model.Users;
 
@@ -32,7 +33,8 @@ public class UserDaoImpl implements IUserDao {
 	public void insertregister(Users user) {
 		String sql = "Insert INTO Users (email, username, fullname, password, status, roleId, code) Values (?,?,?,?,?,?)";
 		try {
-			conn = new DBConnection().getConnection();
+			new DBConnection();
+			conn = DBConnection.getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, user.getEmail());
 			ps.setString(2, user.getUserName());
@@ -50,9 +52,10 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public boolean checkExistEmail(String email) {
 		boolean duplicate = false;
-		String sql = "Select From Users where email =?";
+		String sql = "Select * From users where email =?";
 		try {
-			conn = new DBConnection().getConnection();
+			new DBConnection();
+			conn = DBConnection.getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, email);
 			rs = ps.executeQuery();
@@ -70,9 +73,10 @@ public class UserDaoImpl implements IUserDao {
 	@Override
 	public boolean checkExistUsername(String username) {
 		boolean duplicate = false;
-		String sql = "Select From Users where username =?";
+		String sql = "Select * From users where username =?";
 		try {
-			conn = new DBConnection().getConnection();
+			new DBConnection();
+			conn = DBConnection.getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
 			rs = ps.executeQuery();
@@ -84,6 +88,8 @@ public class UserDaoImpl implements IUserDao {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		System.out.println(duplicate);
+		
 		return duplicate;
 	}
 
@@ -91,7 +97,8 @@ public class UserDaoImpl implements IUserDao {
 	public void updatestatus(Users user) {
 		String sql = "UPDATE [Users] SET status=?, code=? WHERE email = ?";
 		try {
-			conn = new DBConnection().getConnection();
+			new DBConnection();
+			conn = DBConnection.getConnection();
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, user.getStatus());
 			ps.setString(2, user.getCode());
@@ -108,9 +115,50 @@ public class UserDaoImpl implements IUserDao {
 	}
 	@Override
 	public Users findOne(String username) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+		
+		String sql = "SELECT * FROM Users WHERE username = ?";
+        Users user = null;
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        
+        try {
+            // Tạo kết nối đến cơ sở dữ liệu
+            conn = DBConnection.getConnection();
+            // Chuẩn bị câu lệnh SQL
+            ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            // Thực thi câu lệnh và nhận kết quả
+            rs = ps.executeQuery();
+            
+            // Kiểm tra xem có bản ghi nào trong ResultSet không
+            if (rs.next()) {
+                // Lấy thông tin từ ResultSet và tạo đối tượng User
+                String email = rs.getString("email");
+                String password=rs.getString("password");
+                String userid = rs.getString("userid");
+                String fullname=rs.getString("fullname");
+                int status = rs.getInt("status");
+                String code=rs.getString("code");
+                int roleid=rs.getInt("roleid");
+                user = new Users(email, username, fullname,password, roleid, status, code);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo tài nguyên được đóng trong khối finally
+            try {
+                if (rs != null) rs.close();
+                if (ps != null) ps.close();
+                if (conn != null) conn.close();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
+    
+	
 	@Override
 	public void insert(Users user) {
 		// TODO Auto-generated method stub

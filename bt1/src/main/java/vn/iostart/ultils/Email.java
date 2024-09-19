@@ -65,9 +65,15 @@ public class Email {
 			pr.setProperty("mail.smtp.host", "smtp.gmail.com");
 			pr.setProperty("mail.smtp.port", "587");
 			pr.setProperty("mail.smtp.auth", "true");
-			pr.setProperty("mail.smtp.starttls.enable", "true"); pr.put("mail.smtp.socketFactory.port", "587");
+			pr.setProperty("mail.smtp.starttls.enable", "true"); 
+			pr.put("mail.smtp.socketFactory.port", "587");
 			pr.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			return pr;
 			}
+		public boolean Emailsend(Users user) {
+			// TODO Auto-generated method stub
+			return false;
+		}
+		
 		
 }

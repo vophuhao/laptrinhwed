@@ -8,9 +8,9 @@ public class DBConnection {
 	private static String PASSWORD = "1234";
 	private static String DRIVER = "com.mysql.cj.jdbc.Driver";
 
-	private static String URL = "jdbc:mysql://localhost:3306/bt";
+	private static String URL = "jdbc:mysql://127.0.0.1:3306/bt";
 
-	public static Connection getDatabaseConnection() throws SQLException {
+	public static Connection getConnection() throws SQLException {
 
 		try {
 
@@ -34,7 +34,7 @@ public class DBConnection {
 
 			new DBConnection();
 
-			System.out.println(DBConnection.getDatabaseConnection());
+			System.out.println(DBConnection.getConnection());
 
 		} catch (Exception e) {
 
